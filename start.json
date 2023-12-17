@@ -1,0 +1,30 @@
+{
+  "daemon": true,
+  "run": [{
+    "method": "shell.run",
+    "params": {
+      "path": "server",
+      "venv": "env",
+      "message": "uvicorn app:app",
+      "on": [{ "event": "/(http:\/\/[0-9.:]+)/i", "done": true }]
+    }
+  }, {
+    "method": "local.set",
+    "params": { "server": "{{input.event[1]}}" }
+  }, {
+    "method": "shell.run",
+    "params": {
+      "path": "client",
+      "message": "npm run dev",
+      "on": [{ "event": "/(http:\/\/[a-z0-9.:]+)/i", "done": true }]
+    }
+  }, {
+    "method": "local.set",
+    "params": { "client": "{{input.event[1]}}" }
+  }, {
+    "method": "notify",
+    "params": {
+      "html": "Click the 'Web UI' tab to open the app!"
+    }
+  }]
+}
