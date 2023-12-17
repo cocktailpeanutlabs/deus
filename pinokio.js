@@ -7,7 +7,10 @@ module.exports = {
     let server_installed = await kernel.exists(__dirname, "server", "env")
     let client_installed = await kernel.exists(__dirname, "client", "node_modules")
     let installed = server_installed && client_installed
-    if (installed) {
+    let installing = kernel.running(__dirname, "install.json")
+    if (installing) {
+      return [{ icon: "fa-solid fa-plug", text: "Installing", href: "install.json", }]
+    } else if (installed) {
       let running = await kernel.running(__dirname, "start.json")
       // how to ensure that this doesn't crash in old pinokio which doesn't have kernel.local
 
