@@ -12,10 +12,9 @@ module.exports = {
       // how to ensure that this doesn't crash in old pinokio which doesn't have kernel.local
 
       // load new script from old pinokio
-      let server_up = kernel.memory.local[path.resolve(__dirname, 'start.json')].server
-      let client_up = kernel.memory.local[path.resolve(__dirname, 'start.json')].client
+      let local = kernel.memory.local[path.resolve(__dirname, 'start.json')]
       if (running) {
-        if (server_up && client_up) {
+        if (local && local.server && local.client) {
           return [{
             icon: "fa-solid fa-desktop",
             text: "Terminal",
@@ -25,7 +24,7 @@ module.exports = {
           return [{
             icon: "fa-solid fa-house",
             text: "Web UI",
-            href: client_up
+            href: local.client
           }, {
             icon: "fa-solid fa-desktop",
             text: "Terminal",
