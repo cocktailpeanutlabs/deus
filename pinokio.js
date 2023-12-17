@@ -1,3 +1,4 @@
+const path = require('path')
 module.exports = {
   title: "DEUS",
   description: "A Realtime Creation Engine",
@@ -8,8 +9,11 @@ module.exports = {
     let installed = server_installed && client_installed
     if (installed) {
       let running = await kernel.running(__dirname, "start.json")
-      let server_up = kernel.local('start.json').server
-      let client_up = kernel.local('start.json').client
+      // how to ensure that this doesn't crash in old pinokio which doesn't have kernel.local
+
+      // load new script from old pinokio
+      let server_up = kernel.memory.local[path.resolve(__dirname, 'start.json')].server
+      let client_up = kernel.memory.local[path.resolve(__dirname, 'start.json')].client
       if (running) {
         if (server_up && client_up) {
           return [{
