@@ -9,7 +9,7 @@ module.exports = {
     let installed = server_installed && client_installed
     let installing = kernel.running(__dirname, "install.json")
     if (installing) {
-      return [{ icon: "fa-solid fa-plug", text: "Installing", href: "install.json", }]
+      return [{ default: true, icon: "fa-solid fa-plug", text: "Installing", href: "install.json", }]
     } else if (installed) {
       let running = await kernel.running(__dirname, "start.json")
       // how to ensure that this doesn't crash in old pinokio which doesn't have kernel.local
@@ -19,12 +19,14 @@ module.exports = {
       if (running) {
         if (local && local.server && local.client) {
           return [{
+            default: true,
             icon: "fa-solid fa-desktop",
             text: "Terminal",
             href: "start.json"
           }]
         } else {
           return [{
+            default: true,
             icon: "fa-solid fa-house",
             text: "Web UI",
             href: local.client
@@ -35,10 +37,10 @@ module.exports = {
           }]
         }
       } else {
-        return [{ icon: "fa-solid fa-power-off", text: "Start", href: "start.json", }]
+        return [{ default: true, icon: "fa-solid fa-power-off", text: "Start", href: "start.json", }]
       }
     } else {
-      return [{ icon: "fa-solid fa-plug", text: "Install", href: "install.json", }]
+      return [{ default: true, icon: "fa-solid fa-plug", text: "Install", href: "install.json", }]
     }
   }
 }
