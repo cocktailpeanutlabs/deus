@@ -20,6 +20,10 @@ module.exports = {
         if (local && local.server && local.client) {
           return [{
             default: true,
+            icon: "fa-solid fa-house",
+            text: "Web UI",
+            href: local.client
+          }, {
             icon: "fa-solid fa-desktop",
             text: "Terminal",
             href: "start.json"
@@ -27,10 +31,6 @@ module.exports = {
         } else {
           return [{
             default: true,
-            icon: "fa-solid fa-house",
-            text: "Web UI",
-            href: local.client
-          }, {
             icon: "fa-solid fa-desktop",
             text: "Terminal",
             href: "start.json"
